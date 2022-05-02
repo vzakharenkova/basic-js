@@ -6,20 +6,37 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 const chainMaker = {
   chain: [],
+  result: '',
   getLength() {
    return this.chain.length;
   },
   addLink(value) {
-    this.chain.push(`(${ value })`);
+    if (value === undefined) {
+      his.chain.push(`()`);
+      return chainMaker;
+    } else {
+      this.chain.push(`( ${value} )`);
+      return chainMaker;
+    }
+    
   },
   removeLink(position) {
-    
+    if (this.chain[position] && position > 0 && typeof position === 'number') {
+      this.chain.splice(position-1, 1);
+      return chainMaker
+    } else {
+      this.chain = [];
+      throw new Error("You can't remove incorrect link!");
+    }
   },
   reverseChain() {
     this.chain.reverse();
+    return chainMaker;
   },
   finishChain() {
-    return this.chain.join('~~');
+    this.result = this.chain.join('~~');
+    this.chain = [];
+    return this.result;
   }
 };
 

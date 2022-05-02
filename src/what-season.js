@@ -13,11 +13,8 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 
 function getSeason(date) {
-  let error = 'Invalid date!';
+  let error = Error('Invalid date!');
   if (typeof date === 'undefined') return 'Unable to determine the time of year!'
-  // if (!(date instanceof Date)) {
-  //   return 'Invalid date!'
-  // }
   try { date.getUTCMonth();
   } catch (e) {
     throw error;

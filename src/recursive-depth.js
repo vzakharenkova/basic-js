@@ -16,20 +16,16 @@ class DepthCalculator {
   calculateDepth(arr) {
     let counter = 1;
     let checker = 0;
+    count(arr);
     function count(a) {
-      counter += 1;
       for (let i = 0; i < a.length; i++) {
         if (Array.isArray(a[i])) {
+          counter += 1;
           count(a[i]);
         }
       }
-    }
-    for (let i = 0; i < arr.length; i++) {
-        if (Array.isArray(arr[i])) {
-          count(arr[i]);
-        }
         if (counter >= checker) {
-          checker = counter-1;
+          checker = counter;
           counter = 1;
         } else counter = 1;
     }

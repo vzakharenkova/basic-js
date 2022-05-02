@@ -17,25 +17,18 @@ function transform(arr) {
   if (!(arr instanceof Array)) {
     throw new Error("'arr' parameter must be an instance of the Array!")
   }
-  let result = arr;
+  let result = arr.slice();
   for (let i = 0; i < result.length; i++) {
-    let removed
+    let removed;
     switch (result[i]) {
       case '--discard-next' :
         removed = result.splice(i, 2);
-        break;
       case '--discard-prev' :
-        removed = result.splice(i-1, 2);
-        break;
+        removed = result.splice(result[i-1], 2);
       case '--double-next' :
-        removed = result.splice(i, 1, arr[i+1]);
-        break;
+        removed = result.splice(i, 1, result[i+1]);
       case '--double-prev' :
-        removed = result.splice(i, 1, arr[i-1]);
-        break;
-    }
-    if (result !== arr) {
-      breake;
+        removed = result.splice(i, 1, result[i-2]);
     }
   }
   return result;

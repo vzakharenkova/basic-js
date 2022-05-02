@@ -19,17 +19,37 @@ function transform(arr) {
   }
   let result = arr.slice();
   for (let i = 0; i < result.length; i++) {
-    let removed;
-    switch (result[i]) {
-      case '--discard-next' :
-        removed = result.splice(i, 2);
-      case '--discard-prev' :
-        removed = result.splice(result[i-1], 2);
-      case '--double-next' :
-        removed = result.splice(i, 1, result[i+1]);
-      case '--double-prev' :
-        removed = result.splice(i, 1, result[i-2]);
+    if (result[i] === '--discard-next' && result.length > 1) {
+      result.splice(i, 2);
     }
+    if (result[i] === '--discard-prev' && result.length > 1 && i !== 0) {
+      result.splice(i-1, 2);
+    }
+    if (result[i] === '--discard-prev' && result.length > 1 && i == 0) {
+      result.splice(i, 1);
+    }
+    if (result[i] === '--double-next' && result.length > 1 && i !== result.length-1) {
+      result.splice(i, 1, result[i+1]);
+    }
+    if (result[i] === '--double-next' && result.length > 1 && i === result.length-1) {
+      result.splice(i, 1);
+    }
+    if (result[i] === '--double-prev' && result.length > 1 && i !== 0) {
+      result.splice(i, 1, result[i-2]);
+    }
+    if (result[i] === '--double-prev' && result.length > 1 && i === 0) {
+      result.splice(i, 1);
+    }
+    // switch (result[i]) {
+    //   case '--discard-next' :
+    //     removed = result.splice(i, 2);
+    //   case '--discard-prev' :
+    //     removed = result.splice(result[i-1], 2);
+    //   case '--double-next' :
+    //     removed = result.splice(i, 1, result[i+1]);
+    //   case '--double-prev' :
+    //     removed = result.splice(i, 1, result[i-2]);
+    // }
   }
   return result;
 }
